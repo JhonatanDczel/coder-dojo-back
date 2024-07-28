@@ -66,27 +66,61 @@ def clase(request, miembro=-1):
 @authentication_classes([SessionAuthentication])
 def loginUser(request):
     print("Hola, antes de sacar datos")
+    
+    # Obtener datos del request
     username = request.data.get('username')
     password = request.data.get('password')
+    rol = request.data.get('rol')
+    
     print(f"Attempting login with username: {username}")
     print(f"Attempting login with password: {password}")
+    print(f"Attempting login with rol: {rol}")
     
-    # Depuración: Verificar si se recibe el username y el password
-    if not username or not password:
-        print("Username o password no recibidos")
-        return Response({'detail': 'Username o password no proporcionados'}, status=status.HTTP_400_BAD_REQUEST)
+    # Verificar si username y password están presentes
+    if not username:
+        print("Username no recibido")
+        return Response({'detail': 'Username no proporcionado'}, status=status.HTTP_400_BAD_REQUEST)
     
+    if not password:
+        print("Password no recibido")
+        return Response({'detail': 'Password no proporcionado'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    if not rol:
+        print("Rol no recibido")
+        return Response({'detail': 'Rol no proporcionado'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    # Autenticar al usuario
     user = authenticate(username=username, password=password)
     
-    # Depuración: Verificar si el usuario fue autenticado
+    # Verificar si el usuario fue autenticado
     if user is not None:
-        login(request, user)  # Esto establece la cookie de sesión
-        print("Logeado correctamente")
-        print(user.username)
-        return Response({'detail': 'Login successful'}, status=status.HTTP_200_OK)
+        # Comprobar el rol del usuario
+        if rol == 'Docente':
+            if user.is_docente:
+                login(request, user)
+                print("Logeado correctamente como docente")
+                return Response({'detail': 'Login successful como docente'}, status=status.HTTP_200_OK)
+            else:
+                print("Usuario autenticado, pero no es docente")
+                return Response({'detail': 'No tiene permisos para el rol de docente'}, status=status.HTTP_403_FORBIDDEN)
+        
+        elif rol == 'Estudiante':
+            if user.is_estudiante:
+                login(request, user)
+                print("Logeado correctamente como estudiante")
+                return Response({'detail': 'Login successful como estudiante'}, status=status.HTTP_200_OK)
+            else:
+                print("Usuario autenticado, pero no es estudiante")
+                return Response({'detail': 'No tiene permisos para el rol de estudiante'}, status=status.HTTP_403_FORBIDDEN)
+        
+        else:
+            print("Rol recibido no válido")
+            return Response({'detail': 'Rol no válido'}, status=status.HTTP_400_BAD_REQUEST)
+    
     else:
         print("No se pudo autenticar el usuario")
-        return Response({'detail': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+        return Response({'detail': 'Credenciales inválidas'}, status=status.HTTP_401_UNAUTHORIZED)
+
 
 @api_view(['POST'])
 @authentication_classes([SessionAuthentication])
@@ -261,7 +295,6 @@ def get_user_data(request):
   return Response(user_data)
 
 @api_view(['GET'])
-@permission_classes([permissions.IsAuthenticated])
 def is_authenticated(request):
     return Response({'authenticated': not request.user.is_anonymous}, status=status.HTTP_200_OK)
 
