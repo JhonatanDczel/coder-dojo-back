@@ -1,1 +1,1 @@
-web: gunicorn coderDojoBack.wsgi
+web: python manage.py collectstatic && gunicorn coderDojoBack.wsgi

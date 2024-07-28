@@ -35,7 +35,7 @@ ALLOWED_HOSTS = [
     'localhost',
     # Para que funcione en producción
     'web-production-79e8a.up.railway.app',
-    '127.0.0.0.1',
+    '127.0.0.1',
 ]
 
 # Application definition
@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'myclassroom',
     'rest_framework',
     'corsheaders',
+    'whitenoise.runserver_nostatic',
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -94,7 +95,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ROOT_URLCONF = 'coderDojoBack.urls'
 
@@ -163,6 +167,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = '/static/' 
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
