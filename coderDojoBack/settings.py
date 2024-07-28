@@ -30,7 +30,13 @@ CSRF_COOKIE_HTTPONLY = False
 SESSION_COOKIE_HTTPONLY = True
 
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    # Para que funcione en desarrollo
+    'localhost',
+    # Para que funcione en producción
+    'web-production-79e8a.up.railway.app',
+    '127.0.0.0.1',
+]
 
 # Application definition
 
