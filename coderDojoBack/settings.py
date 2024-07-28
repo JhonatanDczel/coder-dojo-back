@@ -59,12 +59,15 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:3333',
     'http://0.0.0.0',
     'http://0.0.0.0:8000',
-    'http://localhost:3333'
+    'http://localhost:3333',
 ]
+
+#todo: agregar vercel
 
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3333',
     'http://127.0.0.1:3333',
+    'https://web-production-79e8a.up.railway.app',
 ]
 
 SESSION_COOKIE_SAMESITE = 'None'
