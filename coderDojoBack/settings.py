@@ -74,6 +74,7 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3333',
     'http://127.0.0.1:3333',
     'https://web-production-79e8a.up.railway.app',
+    'https://coder-dojo-front.vercel.app',
 ]
 
 SESSION_COOKIE_SAMESITE = 'None'
