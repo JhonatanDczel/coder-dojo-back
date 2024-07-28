@@ -65,6 +65,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://0.0.0.0',
     'http://0.0.0.0:8000',
     'http://localhost:3333',
+    'https://coder-dojo-front.vercel.app'
 ]
 
 #todo: agregar vercel
@@ -132,7 +133,6 @@ WSGI_APPLICATION = 'coderDojoBack.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-print(os.getenv('DATABASE_URL'))
 DATABASES = {
     'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
 }
