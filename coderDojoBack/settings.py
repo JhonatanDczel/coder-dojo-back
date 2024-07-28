@@ -46,6 +46,7 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'django_extensions',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -60,6 +61,7 @@ INSTALLED_APPS = [
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8000',
+    'http://localhost:8080',
     'http://127.0.0.1',
     'http://127.0.0.1:3333',
     'http://0.0.0.0',
@@ -72,6 +74,7 @@ CORS_ALLOWED_ORIGINS = [
 
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3333',
+    'http://localhost:8080',
     'http://127.0.0.1:3333',
     'https://web-production-79e8a.up.railway.app',
     'https://coder-dojo-front.vercel.app',
