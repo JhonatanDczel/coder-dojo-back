@@ -41,6 +41,7 @@ ALLOWED_HOSTS = [
     # Para que funcione en producción
     'web-production-79e8a.up.railway.app',
     '127.0.0.1',
+    'web-production-67a5.up.railway.app'
 ]
 
 # Application definition
