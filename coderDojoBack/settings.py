@@ -25,23 +25,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "k#el+!qyinl@66^8k3q&nezk73q$=r1q@w)qmlcj2bg8%@3rz%"
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-# Elamigovecinospyderman
+# Mejorar seguridad
 CSRF_COOKIE_HTTPONLY = False
 SESSION_COOKIE_HTTPONLY = True
-
-
 ALLOWED_HOSTS = [
-    # Para que funcione en desarrollo
     'localhost',
-    # Para que funcione en producción
-    'web-production-79e8a.up.railway.app',
     '127.0.0.1',
     os.environ.get('HOST'),
+    # coderdojodomain   
 ]
 
 # Application definition
@@ -68,23 +64,17 @@ CORS_ALLOWED_ORIGINS = [
     'http://0.0.0.0',
     'http://0.0.0.0:8000',
     'http://localhost:3333',
-    'https://coder-dojo-front.vercel.app'
 ]
-
-#todo: agregar vercel
 
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3333',
     'http://localhost:8080',
     'http://127.0.0.1:3333',
-    'https://web-production-79e8a.up.railway.app',
-    'https://coder-dojo-front.vercel.app',
 ]
 
 SESSION_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SAMESITE = 'None'
-
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
@@ -138,9 +128,9 @@ WSGI_APPLICATION = 'coderDojoBack.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
-}
+# DATABASES = {
+#     'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+# }
 
 DATABASES = {
     'default': {
